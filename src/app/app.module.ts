@@ -6,17 +6,25 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 
-// components
+/* Components */
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { ConverterComponent } from './components/converter/converter.component';
+import { MenuComponent } from './components/home/menu.component';
 
-// services
-import { CoinsService } from './services/coins-service/coins.service';
+/* Services */
+import { CoinsService } from './components/coins/service/coins.service';
+
+/* Interceptors */
 import { HttpApiKeyInterceptorService } from './services/http-apiKey-interceptor/http-api-key-interceptor.service';
 
+/* NgRx */
+import { StoreModule } from '@ngrx/store';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, ConverterComponent],
+  declarations: [AppComponent, NavbarComponent, MenuComponent],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule, ReactiveFormsModule],
   providers: [
     CoinsService,

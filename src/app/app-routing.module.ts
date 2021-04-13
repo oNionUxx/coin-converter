@@ -1,11 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-import { ConverterComponent } from './components/converter/converter.component';
+import { MenuComponent } from './components/home/menu.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'converter', pathMatch: 'full' },
-  { path: 'converter', component: ConverterComponent },
+  {
+    path: '',
+    component: MenuComponent,
+    children: [
+      {
+        path: 'coins',
+        // canActivate: [AuthGuard],
+        loadChildren: () => import('./components/coins/coin.module').then((m) => m.CoinModule),
+      },
+    ],
+  },
 ];
 
 @NgModule({
