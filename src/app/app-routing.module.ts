@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MenuComponent } from './components/home/menu.component';
+import { ShellComponent } from './components/home/shell/shell.component';
 
-const routes: Routes = [
+const appRoutes: Routes = [
   {
     path: '',
-    component: MenuComponent,
+    component: ShellComponent,
     children: [
       {
         path: 'coins',
@@ -17,7 +17,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
