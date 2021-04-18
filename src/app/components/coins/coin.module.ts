@@ -7,9 +7,10 @@ import { SharedModule } from '../shared/shared.module';
 
 import { CoinsShellComponent } from './coins-shell/coins-shell.component';
 import { CoinsListComponent } from './coins-list/coins-list.component';
+import { CoinsInfoComponent } from './coins-info/coins-info.component';
 
 /* Services */
-import { CoinsService } from '../../components/coins/service/coins.service';
+import { CoinService } from './service/coin.service';
 
 /* Interceptors */
 import { HttpApiKeyInterceptorService } from '../../components/coins/service/http-apiKey-interceptor/http-api-key-interceptor.service';
@@ -17,8 +18,8 @@ import { HttpApiKeyInterceptorService } from '../../components/coins/service/htt
 /* NgRx */
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-// import {  } from './state/coins.reducer'
-// import { ProductEffects } from './state/coins.effects';
+import { coinReducer } from './state/coins.reducer';
+import { CoinEffect } from './state/coins.effects';
 
 const coinsRoutes: Routes = [{ path: '', component: CoinsShellComponent }];
 
@@ -26,12 +27,12 @@ const coinsRoutes: Routes = [{ path: '', component: CoinsShellComponent }];
   imports: [
     SharedModule,
     RouterModule.forChild(coinsRoutes),
-    //StoreModule.forFeature('coins', coinReducer),
-    //EffectsModule.forFeature([ProductEffects]),
+    StoreModule.forFeature('coins', coinReducer),
+    EffectsModule.forFeature([CoinEffect]),
   ],
-  declarations: [CoinsShellComponent, CoinsListComponent],
+  declarations: [CoinsShellComponent, CoinsListComponent, CoinsInfoComponent],
   providers: [
-    CoinsService,
+    CoinService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpApiKeyInterceptorService,

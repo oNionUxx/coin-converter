@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { CoinsService } from '../service/coins.service';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Currency } from '../../../models/currency';
-import { Coin } from '../../../models/coin';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Coin } from '../coin';
 
 @Component({
   selector: 'app-coins-list',
@@ -14,7 +12,13 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./coins-list.component.css'],
 })
 export class CoinsListComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder, private coinsService: CoinsService) {}
+  title = 'CURRENCY CONVERTER';
+
+  @Input() coins: Coin[];
+
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {}
+
+  coinSelected(coin: Coin): void {}
 }

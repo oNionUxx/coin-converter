@@ -10,13 +10,24 @@ import { NavbarComponent } from './components/home/navbar/navbar.component';
 
 /* NgRx */
 import { StoreModule } from '@ngrx/store';
-import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [AppComponent, ShellComponent, NavbarComponent],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+      name: 'Coin-Convert-App DevTools',
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
