@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
+import { Coin } from '../coin';
+
 /* NgRx */
 import { Store } from '@ngrx/store';
 import { State, getCoins } from '../state';
@@ -12,10 +14,11 @@ import { CoinService } from '../service/coin.service';
   templateUrl: './coins-shell.component.html',
 })
 export class CoinsShellComponent implements OnInit {
-  coins$: Observable<any[]>;
+  messageErr$;
+  coins$: Observable<Coin[]>;
 
   // Used to highlight the selected product in the list
-  selectedCoin$: Observable<any>;
+  selectedCoin$: Observable<Coin>;
 
   constructor(private store: Store<State>, private coinService: CoinService) {}
 
@@ -25,5 +28,8 @@ export class CoinsShellComponent implements OnInit {
     this.coins$ = this.store.select(getCoins);
 
     this.store.dispatch(CoinsPageActions.loadCoins());
+
+    // this.coinService.coinsWithIcons$.subscribe(console.log);
+    // this.coinService.coins$.subscribe(console.log);
   }
 }
