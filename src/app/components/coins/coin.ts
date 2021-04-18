@@ -3,6 +3,7 @@ export interface Coin {
   name: string;
   id_icon: string;
   price_usd: number;
+  icon: Icon;
   data_end?: string;
   data_orderbook_end?: string;
   data_orderbook_start?: string;
@@ -16,4 +17,9 @@ export interface Coin {
   volume_1day_usd?: number;
   volume_1hrs_usd?: number;
   volume_1mth_usd?: number;
+}
+
+export interface Icon {
+  asset_id: string;
+  url: string;
 }

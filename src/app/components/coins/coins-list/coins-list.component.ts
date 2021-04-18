@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -10,6 +10,7 @@ import { Coin } from '../coin';
   selector: 'app-coins-list',
   templateUrl: './coins-list.component.html',
   styleUrls: ['./coins-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CoinsListComponent implements OnInit {
   title = 'CURRENCY CONVERTER';

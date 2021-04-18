@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State, getCoins } from '../state';
 import { CoinsPageActions } from '../actions';
+import { CoinService } from '../service/coin.service';
 
 @Component({
   selector: 'app-coins-shell',
@@ -16,7 +17,7 @@ export class CoinsShellComponent implements OnInit {
   // Used to highlight the selected product in the list
   selectedCoin$: Observable<any>;
 
-  constructor(private store: Store<State>) {}
+  constructor(private store: Store<State>, private coinService: CoinService) {}
 
   ngOnInit(): void {
     // Do NOT subscribe here because it uses an async pipe
