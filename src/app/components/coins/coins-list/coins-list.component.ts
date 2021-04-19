@@ -2,8 +2,6 @@ import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Coin } from '../coin';
 
 @Component({

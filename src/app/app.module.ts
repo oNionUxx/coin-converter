@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './components/shared/shared.module';
 
 /* Components */
 import { AppComponent } from './app.component';
@@ -12,6 +13,9 @@ import { NavbarComponent } from './components/home/navbar/navbar.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { appReducer } from './store/state/app.state';
+
+/* environment */
 
 import { environment } from '../environments/environment';
 
@@ -20,7 +24,8 @@ import { environment } from '../environments/environment';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot({}),
+    SharedModule,
+    StoreModule.forRoot(appReducer),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       name: 'Coin-Convert-App DevTools',

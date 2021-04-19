@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createEffect, ofType, Actions } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, concatMap, map, mergeMap } from 'rxjs/operators';
+import { catchError, map, mergeMap, shareReplay } from 'rxjs/operators';
 import { CoinService } from '../service/coin.service';
 import { CoinsPageActions, CoinsApiActions } from '../actions';
 
@@ -16,6 +16,7 @@ export class CoinEffect {
       mergeMap(() =>
         this.coinService.getAssetsName().pipe(
           map((coins) => CoinsApiActions.loadCoinsOnSuccess({ coins })),
+          shareReplay(1),
           catchError((err) => of(CoinsApiActions.loadCoinsOnFailure({ err })))
         )
       )

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { combineLatest, Observable, throwError } from 'rxjs';
-import { catchError, tap, map, shareReplay } from 'rxjs/operators';
+import { catchError, tap, map, shareReplay, take } from 'rxjs/operators';
 
 import { Coin, Icon } from '../coin';
 
@@ -13,15 +13,13 @@ export class CoinService {
 
   coins$ = this.http.get<Coin[]>(`http://rest.coinapi.io/v1/assets`).pipe(
     tap((data) => console.log('Coins Data: ', JSON.stringify(data))),
-    shareReplay(1),
     catchError(this.handleError)
   );
 
-  coinsWithIcons$ = this.http.get<Icon[]>(`http://rest.coinapi.io/v1/assets/icons/32`).pipe(
-    tap((data) => console.log('Coins With Icons: ', JSON.stringify(data))),
-    shareReplay(1),
-    catchError(this.handleError)
-  );
+  // coinsWithIcons$ = this.http.get<Icon[]>(`http://rest.coinapi.io/v1/assets/icons/32`).pipe(
+  //   tap((data) => console.log('Coins With Icons: ', JSON.stringify(data))),
+  //   catchError(this.handleError)
+  // );
 
   coinsWithExchangeRate$: Observable<number>;
 
@@ -29,25 +27,27 @@ export class CoinService {
     this.baseUrl = 'http://rest.coinapi.io/v1';
   }
 
+  // getAssetsName(): Observable<Coin[]> {
+  //   return (this.coins$ = combineLatest([this.coins$, this.coinsWithIcons$]).pipe(
+  //     map(([coins, icons]) =>
+  //       coins.map(
+  //         (coin) =>
+  //           ({
+  //             ...coin,
+  //             icon: icons.find((c) => c.asset_id === coin.asset_id),
+  //           } as Coin)
+  //       )
+  //     )
+  //   ));
+  // }
+
   getAssetsName(): Observable<Coin[]> {
-    return (this.coins$ = combineLatest([this.coins$, this.coinsWithIcons$]).pipe(
-      map(([coins, icons]) =>
-        coins.map(
-          (coin) =>
-            ({
-              ...coin,
-              icon: icons.find((c) => c.asset_id === coin.asset_id),
-            } as Coin)
-        )
-      ),
-      shareReplay(1)
-    ));
+    return this.coins$;
   }
 
   getExchangeRate(from: string, to: string): Observable<number> {
     return (this.coinsWithExchangeRate$ = this.http.get<number>(`${this.baseUrl}/exchangerate/${from}/${to}?`).pipe(
       tap((data) => console.log('Exchange Rate: ', JSON.stringify(data))),
-      shareReplay(1),
       catchError(this.handleError)
     ));
   }

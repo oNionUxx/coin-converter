@@ -1,5 +1,4 @@
-import { createAction, props } from '@ngrx/store';
-import { Coin } from '../coin';
+import { createAction } from '@ngrx/store';
 
 /* Load Coins List Action */
 export const loadCoins = createAction('[Coins Page] Load Success');
