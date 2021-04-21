@@ -9,3 +9,15 @@ export interface State extends AppState.State {
 const getCoinFeatureState = createFeatureSelector<CoinState>('coins');
 
 export const getCoins = createSelector(getCoinFeatureState, (state) => state.coins);
+
+export const getCurrentCoinId = createSelector(getCoinFeatureState, (state) => state.currentCoinId);
+
+export const getCurrentCoin = createSelector(getCoinFeatureState, getCurrentCoinId, (state, currentCoinId) => {
+  if (!currentCoinId) {
+    return null;
+  } else {
+    return currentCoinId ? state.coins.find((coin) => coin.asset_id === currentCoinId) : null;
+  }
+});
+
+export const showEntries = createSelector(getCoinFeatureState, (state) => state.showEntries);

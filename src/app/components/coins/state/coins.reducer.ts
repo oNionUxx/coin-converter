@@ -6,11 +6,16 @@ import { Coin } from '../coin';
 
 export interface CoinState {
   coins: Coin[];
+  currentCoinId: string | null;
+  showEntries: number;
   error: string;
 }
 
+/* Initial Coin state */
 const initialState: CoinState = {
   coins: [],
+  currentCoinId: null,
+  showEntries: 50,
   error: '',
 };
 
@@ -33,6 +38,24 @@ export const coinReducer = createReducer<CoinState>(
         ...state,
         coins: [],
         error: action.err,
+      };
+    }
+  ),
+  on(
+    CoinsPageActions.setCurrentCoin,
+    (state, action): CoinState => {
+      return {
+        ...state,
+        currentCoinId: action.currentCoinId,
+      };
+    }
+  ),
+  on(
+    CoinsPageActions.showEntries,
+    (state, action): CoinState => {
+      return {
+        ...state,
+        showEntries: action.entries,
       };
     }
   )

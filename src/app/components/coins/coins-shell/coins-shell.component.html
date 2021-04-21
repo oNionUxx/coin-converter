@@ -1,4 +1,11 @@
 <div class="row">
-    <app-coins-list class="col-4" [coins]="coins$ | async"></app-coins-list>
-    <app-coins-info class="col-8"></app-coins-info>
+    <div class="col-4">
+        <app-coins-list [coins]="coins$ | async" [selectedCoin]="selectedCoin$ | async"
+            [showEntries]="showEntries$ | async" (coinWasSelected)="coinSelected($any($event))"
+            (displayEntriesChanged)="checkEntriesChanged($event)">
+        </app-coins-list>
+    </div>
+    <div class="col-8">
+        <app-coins-info></app-coins-info>
+    </div>
 </div>

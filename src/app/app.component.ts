@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   Router,
   // import as RouterEvent to avoid confusion with the DOM Event
@@ -22,7 +22,7 @@ import { toggleSpinner } from 'src/app/store/shared/shared.actions';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   showSpinner$: Observable<boolean>;
 
   constructor(private router: Router, private store: Store<State>) {
@@ -31,6 +31,10 @@ export class AppComponent {
     });
 
     // Sets initial value to true to show loading spinner on first load
+    this.store.dispatch(toggleSpinner({ status: true }));
+  }
+
+  ngOnInit(): void {
     this.showSpinner$ = this.store.select(getSpinnerStatus);
   }
 

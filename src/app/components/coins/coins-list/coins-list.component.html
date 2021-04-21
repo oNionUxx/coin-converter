@@ -5,9 +5,18 @@
     </div>
 
     <div class="card-body">
+        <div class="form-group">
+            <select class="form-select" (change)="onChange($event)">
+                <option selected>Display All</option>
+                <option value="50">Display 50</option>
+                <option value="100">Display 100</option>
+                <option value="500">Display 500</option>
+                <option value="1000">Display 1000</option>
+            </select>
+        </div>
         <div class="list-group">
-            <button class="list-group-item list-group-item-action rounded-0" *ngFor="let coin of coins"
-                (click)="coinSelected(coin)">
+            <button class="list-group-item list-group-item-action rounded-0"
+                *ngFor="let coin of coins | slice:0:showEntries" (click)="coinSelected(coin)">
                 <ng-container>
                     <!-- <img src="{{ coin.icon?.url }}" alt="{{ coin?.name }}"> -->
                     {{ coin?.name }}

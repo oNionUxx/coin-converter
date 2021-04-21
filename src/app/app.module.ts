@@ -15,8 +15,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { appReducer } from './store/state/app.state';
 
-/* environment */
-
+/* Environment */
 import { environment } from '../environments/environment';
 
 @NgModule({

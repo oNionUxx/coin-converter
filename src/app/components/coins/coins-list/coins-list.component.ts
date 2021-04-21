@@ -1,6 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 
 import { Coin } from '../coin';
 
@@ -10,14 +8,21 @@ import { Coin } from '../coin';
   styleUrls: ['./coins-list.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CoinsListComponent implements OnInit {
+export class CoinsListComponent {
   title = 'CURRENCY CONVERTER';
 
   @Input() coins: Coin[];
+  @Input() selectedCoin: Coin;
+  @Input() showEntries: number;
 
-  constructor(private formBuilder: FormBuilder) {}
+  @Output() coinWasSelected = new EventEmitter<Coin>();
+  @Output() displayEntriesChanged = new EventEmitter<number>();
 
-  ngOnInit(): void {}
+  coinSelected(coin: Coin): void {
+    this.coinWasSelected.emit(coin);
+  }
 
-  coinSelected(coin: Coin): void {}
+  onChange(event): void {
+    this.displayEntriesChanged.emit(event.target.value);
+  }
 }
